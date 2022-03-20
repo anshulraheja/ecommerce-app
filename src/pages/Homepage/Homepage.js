@@ -1,9 +1,9 @@
-import Header from '../components/Header/Header'
+import Header from '../../components/Header/Header'
 import './Homepage.css'
-import homepage_front from '../assets/images/homepage_front.png'
+import homepage_front from '../../assets/images/homepage_front.png'
 import { Link } from 'react-router-dom'
-import ProductCard from '../components/ProductCard/ProductCard'
-import { useDb } from '../context/Dbcontext'
+import ProductCard from '../../components/ProductCard/ProductCard'
+import { useDb } from '../../context/Dbcontext'
 const Homepage = () => {
     const { DbState } = useDb();
     const { products } = DbState;
