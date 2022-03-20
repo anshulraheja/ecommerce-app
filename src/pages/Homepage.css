@@ -26,6 +26,13 @@
     width: 8rem;
     margin: 1rem auto;
 }
+.homepage-section-one{
+    margin-top: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 1rem;
+}
 .section-header{
     font-weight: 500;
     margin-bottom: 1rem;

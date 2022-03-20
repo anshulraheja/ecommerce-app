@@ -4,6 +4,7 @@
     --COLOR-BACKGROUND-GREY: #f5f5f5;
     --COLOR-NOTIFICATION: #77d0ed;
     --DESCREIPTION-CONTENT-SUBTITLE: #757575;
+    
     --COLOR-WHITE: #FFFFFF;
     --COLOR-BLACK: #000000;
     --COLOR-SECONDARY: GREY;
@@ -51,5 +52,5 @@ li {
 /* App */
 .main-container {
     width: 90%;
-    margin: auto;
+    margin: 1rem auto;
 }

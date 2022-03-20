@@ -1,20 +1,22 @@
 import './ProductCard.css'
 
-const ProductCard = () => {
+const ProductCard = ({ item }) => {
+    const { title, price, image, categoryName } = item;
+
     return (
         <div className="product-card vertical-card">
             <div className="product-card-image-container">
-                <img src="https://picsum.photos/201" alt="" />
+                <img src={image} alt="" />
                 <span className="btn-liked">
                     <i className="far fa-heart"></i>
                 </span>
             </div>
             <div className="product-card-info vertical-info">
                 <div className="vertical-description">
-                    <h4 className="description-content-title">Nike</h4>
-                    <h5 className="description-content-subtitle">Airforce 1</h5>
+                    <h4 className="description-content-title">{title}</h4>
+                    <h5 className="description-content-subtitle">{categoryName}</h5>
                     <div className="product-card-price">
-                        <span className="current-price">Rs 395</span>
+                        <span className="current-price">Rs {price}</span>
                     </div>
                 </div>
                 <div className="product-card-btn-container">

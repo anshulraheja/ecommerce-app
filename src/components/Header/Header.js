@@ -1,19 +1,11 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios'
 import './Header.css'
 import { Link } from 'react-router-dom'
 import nike_logo from '../../assets/images/nike_logo.png'
-
+import { useDb } from '../../context/Dbcontext'
 const Header = () => {
-    const [categories, setCategories] = useState([]);
-    useEffect(async () => {
-        try {
-            const res = await axios.get('/api/categories');
-            setCategories(res.data.categories);
-        } catch (error) {
-            console.log(error);
-        }
-    }, []);
+    const { DbState } = useDb();
+    const { categories } = DbState;
+
     return (
         <header className="header">
             <div className='logo'>
@@ -22,9 +14,9 @@ const Header = () => {
                 </Link>
             </div>
             <div className="categories">
-                {categories.map(({ _id, categoryName }) => (
+                {categories.length > 0 && categories.map(({ _id, categoryName }) => (
                     <li key={_id}>
-                        <Link to="/">{categoryName}</Link>
+                        <Link to="/products">{categoryName}</Link>
                     </li>
                 ))}
             </div>
