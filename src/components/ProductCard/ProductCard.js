@@ -1,7 +1,7 @@
 import './ProductCard.css'
 
 const ProductCard = ({ item }) => {
-    const { title, price, image, categoryName } = item;
+    const { title, price, image, categoryName, subCategory, rating } = item;
 
     return (
         <div className="product-card vertical-card">
@@ -13,14 +13,22 @@ const ProductCard = ({ item }) => {
             </div>
             <div className="product-card-info vertical-info">
                 <div className="vertical-description">
-                    <h4 className="description-content-title">{title}</h4>
-                    <h5 className="description-content-subtitle">{categoryName}</h5>
+                    <div className="description-content-title">
+                        {title}
+                        <span className="description-content temp2">
+                            {rating}
+                            <i class="fas fa-star rating-star"></i>
+                        </span>
+                    </div>
+                    <h5 className="description-content">{categoryName}</h5>
+                    <h5 className="description-content temp">{subCategory}</h5>
+
                     <div className="product-card-price">
                         <span className="current-price">Rs {price}</span>
                     </div>
                 </div>
                 <div className="product-card-btn-container">
-                    <button className="btn-addToCart">Add To Cart</button>
+                    <button className="btn-addToCart">Add to Bag</button>
                 </div>
             </div>
         </div>

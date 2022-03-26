@@ -1,15 +1,11 @@
 .header{
-    /* background: var(--COLOR-HEADER-BKGD); */
     padding: 0.5rem;
-    /* position: fixed;
-    left: 0;
-    right: 0;
-    top: 0; */
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 0.5rem;
     z-index: 1;
+    margin-bottom: 2rem;
 }
 .header a {
     color: black;

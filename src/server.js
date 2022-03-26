@@ -22,9 +22,14 @@ import {
   getWishlistItemsHandler,
   removeItemFromWishlistHandler,
 } from "./backend/controllers/WishlistController";
+import {
+  getAllSubCategoriesHandler,
+  getSubCategoryHandler
+} from './backend/controllers/SubCategoryController';
 import { categories } from "./backend/db/categories";
 import { products } from "./backend/db/products";
 import { users } from "./backend/db/users";
+import { subCategories } from "./backend/db/subCategories";
 
 export function makeServer({ environment = "development" } = {}) {
   return new Server({
@@ -38,6 +43,7 @@ export function makeServer({ environment = "development" } = {}) {
       user: Model,
       cart: Model,
       wishlist: Model,
+      subCategory: Model,
     },
 
     // Runs on the start of the server
@@ -53,6 +59,8 @@ export function makeServer({ environment = "development" } = {}) {
       );
 
       categories.forEach((item) => server.create("category", { ...item }));
+
+      subCategories.forEach((item) => server.create("subCategory", { ...item }));
     },
 
     routes() {
@@ -68,6 +76,10 @@ export function makeServer({ environment = "development" } = {}) {
       // categories routes (public)
       this.get("/categories", getAllCategoriesHandler.bind(this));
       this.get("/categories/:categoryId", getCategoryHandler.bind(this));
+
+      // subCategories (public)
+      this.get("/subCategories", getAllSubCategoriesHandler.bind(this));
+      this.get("/subCategories/:subCategoryId", getSubCategoryHandler.bind(this));
 
       // cart routes (private)
       this.get("/user/cart", getCartItemsHandler.bind(this));
