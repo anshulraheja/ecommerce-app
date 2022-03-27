@@ -6,7 +6,8 @@ const DbContext = createContext();
 const initialDbState = {
     categories: [],
     products: [],
-    user: []
+    user: [],
+    subCategories: []
 }
 const DbReducer = (DbState, action) => {
     switch (action.type) {
@@ -19,6 +20,11 @@ const DbReducer = (DbState, action) => {
             return {
                 ...DbState,
                 categories: action.payload,
+            };
+        case "getSubCategories":
+            return {
+                ...DbState,
+                subCategories: action.payload,
             };
         default:
             return DbState
@@ -57,6 +63,22 @@ function DbProvider({ children }) {
         };
         getcategory();
     }, []);
+
+    useEffect(() => {
+        const getSubCategory = async () => {
+            try {
+                const response = await axios.get("/api/subCategories");
+                DbDispatch({
+                    type: "getSubCategories",
+                    payload: response.data.subCategories,
+                });
+            } catch (error) {
+                console.error(error.message);
+            }
+        };
+        getSubCategory();
+    }, []);
+
 
     return (
         <DbContext.Provider value={{ DbState, DbDispatch }}>

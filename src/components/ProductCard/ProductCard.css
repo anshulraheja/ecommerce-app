@@ -35,7 +35,7 @@
 .btn-addToCart, .btn-saveToWishList{
     padding: 0.75rem 1rem;
     width: 100%;
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 500;
     border: none;
 }
@@ -55,13 +55,28 @@
 .description-content-title{
     font-weight: 500;
     line-height: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-.description-content-subtitle{
+.description-content{
     font-weight: 500;
-    line-height: 24px;
     color: var(--DESCREIPTION-CONTENT-SUBTITLE);
+}
+.temp{
+    line-height: 24px;
+}
+.temp2{
+    font-size: 14px;
+    display: flex;
+    align-items: center;
 }
 .product-card-price{
     font-weight: 500;
     line-height: 24px;
+}
+.rating-star{
+    color: #f67e09;
+    font-size: 12px;
+    padding-bottom: 1px;
 }
