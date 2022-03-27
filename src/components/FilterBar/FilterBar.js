@@ -93,7 +93,7 @@ const FilterBar = () => {
                                     payload: "LOW_TO_HIGH"
                                 })
                             }
-                            checked={sortBy === "LOW_TO_HIGH" ? true : false}
+                            checked={sortBy === "LOW_TO_HIGH"}
                         />
                         Low to High
                     </label>
@@ -105,7 +105,7 @@ const FilterBar = () => {
                                     payload: "HIGH_TO_LOW"
                                 })
                             }
-                            checked={sortBy === "HIGH_TO_LOW" ? true : false}
+                            checked={sortBy === "HIGH_TO_LOW"}
                         />
                         High to Low
                     </label>
