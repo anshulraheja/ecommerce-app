@@ -17,7 +17,7 @@ const ProductCard = ({ item }) => {
                         {title}
                         <span className="description-content temp2">
                             {rating}
-                            <i class="fas fa-star rating-star"></i>
+                            <i className="fas fa-star rating-star"></i>
                         </span>
                     </div>
                     <h5 className="description-content">{categoryName}</h5>

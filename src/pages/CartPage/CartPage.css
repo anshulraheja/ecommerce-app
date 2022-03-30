@@ -1,0 +1,63 @@
+.cart-product-container{
+    background: var(--COLOR-CATEGORY-BKGD);
+    padding: 1rem;
+    max-width: 55rem;
+    margin: 0.5rem auto 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.cart-header{
+    text-align: center;
+}
+.final-product-container{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.btn-removeFromCart, .btn-movetoWishlist{
+    padding: 0.5rem;
+    font-weight: 500;
+}
+.btn-removeFromCart{
+    background: var(--COLOR-CATEGORY-BKGD);
+}
+.btn-movetoWishlist{
+    background: var(--COLOR-CATEGORY-CARD-BKGD);
+    color: var(--COLOR-WHITE);
+}
+.price-card-container{
+}
+.price-card{
+    padding: 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.coupon-check{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.coupon-check > a{
+    padding: 0.25rem;
+    color: var(--COLOR-SEARCH-BAR);
+    border: 1px solid var(--COLOR-SEARCH-BAR);
+}
+.price-box{
+    background: var(--COLOR-HEADER-TEXT);
+    color: var(--COLOR-SEARCH-BAR);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem
+}
+.item-price{
+    display: flex;
+    justify-content: space-between;
+}
+.btn-placeOrder{
+    background: var(--COLOR-BLACK);
+    text-align: center;
+    padding: 0.75rem 1rem;
+}
