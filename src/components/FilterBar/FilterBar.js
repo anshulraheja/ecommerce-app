@@ -7,8 +7,6 @@ const FilterBar = () => {
     const { filterState, filterDispatch } = useFilterContext();
     const { sortBy, max_price, rating, categories } = filterState;
     const { shoes } = categories
-    console.log("categories:", categories)
-    console.log("shoes: ", shoes);
     return (
 
         <div>
@@ -31,7 +29,6 @@ const FilterBar = () => {
                     <h4 className="sub-filter-header">Category</h4>
                     {
                         subCategories.length > 0 && (subCategories.map(({ _id, subCategoryName }) => {
-                            console.log("subCategoryName:", subCategoryName.toLowerCase())
                             return (
                                 <div key={_id}>
                                     <label htmlFor={_id} >

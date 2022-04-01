@@ -1,14 +1,24 @@
 import './ProductCard.css'
-
+import { useWishlist } from '../../context/wishlist-context.js'
 const ProductCard = ({ item }) => {
     const { title, price, image, categoryName, subCategory, rating } = item;
+    const { wishlist, toggleWishlist } = useWishlist();
 
+    const isProductInWishlist =
+        wishlist.findIndex((p) => p._id === item._id) !== -1;
     return (
         <div className="product-card vertical-card">
             <div className="product-card-image-container">
                 <img src={image} alt="" />
-                <span className="btn-liked">
-                    <i className="far fa-heart"></i>
+                <span className="btn-liked" onClick={() => toggleWishlist(item)}>
+                    {
+                        isProductInWishlist ? (
+                            <i className="fa-solid fa-heart" style={{ color: "red" }}></i>
+                        ) : (
+                            <i className="far fa-heart"></i>
+                        )
+                    }
+
                 </span>
             </div>
             <div className="product-card-info vertical-info">

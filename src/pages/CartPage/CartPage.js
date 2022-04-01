@@ -6,7 +6,6 @@ import { Header, ProductCard } from '../../components'
 import { useAuth } from '../../context/auth-context'
 const CartPage = () => {
     const { auth } = useAuth();
-    console.log(auth);
     return (
         <>
             <Header />

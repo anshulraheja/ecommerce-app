@@ -27,10 +27,6 @@ const SignupPage = () => {
 
     };
 
-    function showAuthData() {
-        console.log(auth.user.name)
-    }
-
     return (
         <div><section className="login-container">
             <form className="login-form">
@@ -63,7 +59,6 @@ const SignupPage = () => {
                 <Link to="/login" className="login-new_account">Already Have an account</Link>
             </form>
         </section>
-            <button onClick={showAuthData}>show</button>
         </div>
     )
 }

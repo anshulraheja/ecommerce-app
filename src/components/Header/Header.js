@@ -7,8 +7,6 @@ const Header = () => {
     const { DbState } = useDb();
     const { categories } = DbState;
     const { auth, logoutHandler } = useAuth();
-    console.log(auth);
-    console.log(auth.user.firstName);
     return (
         <header className="header">
             <div className='logo'>

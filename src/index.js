@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { DbProvider } from "./context/Dbcontext";
 import { FilterProvider } from "./context/filter-context";
 import { AuthProvider } from "./context/auth-context";
+import { WishlistProvider } from "./context/wishlist-context";
 // Call make Server
 makeServer();
 
@@ -13,13 +14,15 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <DbProvider>
+
         <AuthProvider>
-          <FilterProvider>
-
-            <App />
-
-          </FilterProvider>
+          <WishlistProvider>
+            <FilterProvider>
+              <App />
+            </FilterProvider>
+          </WishlistProvider>
         </ AuthProvider >
+
       </DbProvider>
     </BrowserRouter>
   </React.StrictMode>,

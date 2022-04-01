@@ -39,7 +39,6 @@ const AuthProvider = ({ children }) => {
     const signUphandler = async (e, userInfo) => {
         e.preventDefault();
         const { name, email, password, confirmpassword, terms } = userInfo;
-        console.log(name, email, password, confirmpassword, terms);
         if (password !== confirmpassword || name == "" || email == "" || password == "" || confirmpassword == "" || terms == false) {
             alert("Either password is incorrect or you haven't filled all the details ");
             return;
@@ -58,7 +57,7 @@ const AuthProvider = ({ children }) => {
                 authDispatcher({ type: "LOGGED_IN", payload: response.data });
                 navigate("/");
             } catch (error) {
-                console.log(error);
+                alert(error);
                 navigate("/");
             }
         }
@@ -90,7 +89,7 @@ const AuthProvider = ({ children }) => {
                 authDispatcher({ type: "LOGGED_IN", payload: response.data });
                 navigate("/");
             } catch (error) {
-                console.log(error);
+                alert(error);
                 navigate("/");
             }
         }
