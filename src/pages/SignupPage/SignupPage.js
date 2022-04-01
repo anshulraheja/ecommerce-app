@@ -1,4 +1,5 @@
 import './SignupPage.css'
+import { Link } from 'react-router-dom';
 import { useState } from 'react'
 import { useAuth } from '../../context/auth-context';
 const SignupPage = () => {
@@ -25,6 +26,10 @@ const SignupPage = () => {
         }
 
     };
+
+    function showAuthData() {
+        console.log(auth.user.name)
+    }
 
     return (
         <div><section className="login-container">
@@ -55,13 +60,11 @@ const SignupPage = () => {
                     </div>
                 </div>
                 <button className="login-button" onClick={(e) => signUphandler(e, signUpData)}>Create New Account</button>
-                {/* <div className="social">
-                    <button className="google"><i className="fab fa-google"></i>Sign up with Google</button>
-                    <button className="fb"><i className="fab fa-facebook"></i>Sign up with Facebook</button>
-                </div> */}
-                <a href="/pages/login.html" className="login-new_account">Already have an account</a>
+                <Link to="/login" className="login-new_account">Already Have an account</Link>
             </form>
-        </section></div>
+        </section>
+            <button onClick={showAuthData}>show</button>
+        </div>
     )
 }
 

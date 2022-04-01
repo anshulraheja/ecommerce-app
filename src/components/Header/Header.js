@@ -2,10 +2,13 @@ import './Header.css'
 import { Link } from 'react-router-dom'
 import nike_logo from '../../assets/images/nike_logo.png'
 import { useDb } from '../../context/Dbcontext'
+import { useAuth } from '../../context/auth-context'
 const Header = () => {
     const { DbState } = useDb();
     const { categories } = DbState;
-
+    const { auth, logoutHandler } = useAuth();
+    console.log(auth);
+    console.log(auth.user.firstName);
     return (
         <header className="header">
             <div className='logo'>
@@ -34,12 +37,19 @@ const Header = () => {
                         <i className="fas fa-shopping-bag"></i>
                         <span className="badge notification-badge">2</span>
                     </Link>
-                    <Link to="/signin" className="btn-login">
-                        Sign in
-                    </Link>
+                    {auth.isLoggedIn === true ?
+                        < div >
+                            <button onClick={logoutHandler}>Logout</button>
+                        </div>
+
+                        :
+                        <Link to="/signup" className="btn-login">
+                            Sign up
+                        </Link>
+                    }
                 </div>
             </div>
-        </header>
+        </header >
     )
 }
 

@@ -1,34 +1,51 @@
 import './LoginPage.css'
-import React from 'react'
-
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useAuth } from '../../context/auth-context';
 const LoginPage = () => {
+
+    const [loginData, setloginData] = useState({
+        email: "",
+        password: "",
+    });
+
+    const { loginHandler, auth } = useAuth();
+
+    const inputHandler = (e) => {
+        if (e.target.type === "checkbox") {
+            setloginData((loginData) => ({
+                ...loginData,
+                [e.target.name]: e.target.checked,
+            }));
+        }
+        else {
+            setloginData((data) => ({ ...data, [e.target.name]: e.target.value }));
+        }
+
+    };
     return (
         <div>
-            <section class="login-container">
-                <form class="login-form">
-                    <h3 class="login-header">Login</h3>
+            <section className="login-container">
+                <form className="login-form">
+                    <h3 className="login-header">Login</h3>
                     <div>
-                        <label for="email">Email</label>
-                        <input type="email" placeholder="Email" id="email" />
+                        <label htmlFor="email">Email</label>
+                        <input type="email" name="email" placeholder="Email" id="email" onChange={inputHandler} />
                     </div>
                     <div>
-                        <label for="password">Password</label>
-                        <input type="password" placeholder="Password" id="password" />
+                        <label htmlFor="password">Password</label>
+                        <input type="password" name="password" placeholder="Password" id="password" onChange={inputHandler} />
 
-                        <div class="login-remember">
+                        <div className="login-remember">
                             <span>
-                                <input type="checkbox" id="rememberme" name="rememberme" />
-                                <label for="rememberme">Remember me</label>
+                                <input type="checkbox" id="rememberme" name="rememberme" onChange={inputHandler} />
+                                <label htmlFor="rememberme">Remember me</label>
                             </span>
                             <a href="#">Forgot your password?</a>
                         </div>
                     </div>
-                    <button class="login-button">Login</button>
-                    <div class="social">
-                        <button class="google"><i class="fab fa-google"></i>Google</button>
-                        <button class="fb"><i class="fab fa-facebook"></i>Facebook</button>
-                    </div>
-                    <a href="/pages/signup.html" class="login-new_account">Create New Account</a>
+                    <button className="login-button" onClick={(e) => loginHandler(e, loginData)}>Login</button>
+                    <Link to="/signup" className="login-new_account" >Create New Account</Link>
                 </form>
             </section>
         </div>

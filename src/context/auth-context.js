@@ -1,32 +1,32 @@
 import axios from "axios";
 import { createContext, useContext, useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 
 const authContext = createContext(null);
 
 const authInitialState = {
-    isLoggedIn: false,
-    userId: "",
-    user: ""
+    isLoggedIn: localStorage.getItem("token") ? true : false,
+    user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : "",
 };
 
 
 const authReducer = (state, action) => {
-    console.log(state)
-    console.log(action.payload.userInfo)
     switch (action.type) {
-        case "loggedIn":
-            const { userInfo, _id: userId } = action.payload;
-            console.log(userInfo)
-            console.log(userId)
+        case "LOGGED_IN":
             return {
                 ...state,
-                userId: userId,
-                user: userInfo,
+                user: action.payload,
                 isLoggedIn: true,
             };
 
-        case "loggedOut":
-            return authInitialState;
+        case "LOGGED_OUT":
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            return {
+                ...state,
+                isLoggedIn: false,
+                user: ""
+            };
         default:
             return state;
     }
@@ -34,6 +34,7 @@ const authReducer = (state, action) => {
 
 const AuthProvider = ({ children }) => {
     const [auth, authDispatcher] = useReducer(authReducer, authInitialState);
+    const navigate = useNavigate();
 
     const signUphandler = async (e, userInfo) => {
         e.preventDefault();
@@ -45,37 +46,58 @@ const AuthProvider = ({ children }) => {
         }
         else {
             try {
-                const response = await axios.post(`/api/auth/signup`, { userInfo });
+                const response = await axios.post(`/api/auth/signup`, {
+                    "email": email,
+                    "password": password,
+                    "confirmpassword": confirmpassword,
+                    "firstName": name,
+                    "terms": terms
+                });
                 localStorage.setItem("token", response.data.encodedToken);
-                const { createdUser } = response.data;
-                console.log(response.data.encodedToken)
-                console.log(createdUser);
-                authDispatcher({ type: "loggedIn", payload: createdUser });
+                localStorage.setItem("user", JSON.stringify(response.data));
+                authDispatcher({ type: "LOGGED_IN", payload: response.data });
+                navigate("/");
             } catch (error) {
                 console.log(error);
+                navigate("/");
             }
-            console.log("else")
         }
     }
 
-    const handleLoginIn = async (userInfo) => {
-        const { email, password } = userInfo;
-        try {
-            const response = await axios.post(`/api/auth/login`, {
-                email,
-                password,
-            });
-            localStorage.setItem("token", response.data.encodedToken);
-            const { foundUser } = response.data;
-            authDispatcher({ type: "loggedIn", payload: foundUser });
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    const logoutHandler = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        authDispatcher({ type: "LOGGED_OUT" });
+        navigate("/");
+    }
 
+    const loginHandler = async (e, userInfo) => {
+        e.preventDefault();
+        const { email, password } = userInfo;
+        if (email == "" || password == "") {
+            alert("Fields can't be empty");
+            return;
+        }
+        else {
+
+            try {
+                const response = await axios.post("/api/auth/login", JSON.stringify({
+                    email: email,
+                    password: password,
+                }))
+                localStorage.setItem("token", response.data.encodedToken);
+                localStorage.setItem("user", JSON.stringify(response.data));
+                authDispatcher({ type: "LOGGED_IN", payload: response.data });
+                navigate("/");
+            } catch (error) {
+                console.log(error);
+                navigate("/");
+            }
+        }
+    }
     return (
         <authContext.Provider
-            value={{ auth, authDispatcher, signUphandler, handleLoginIn }}
+            value={{ auth, authDispatcher, signUphandler, logoutHandler, loginHandler }}
         >
             {children}
         </authContext.Provider>
