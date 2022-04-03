@@ -7,7 +7,7 @@ const WishlistContext = createContext(null);
 
 const WishlistProvider = ({ children }) => {
     const { auth } = useAuth();
-    const { isLoggedIn } = auth;
+    const { isLoggedIn, token } = auth;
     const [wishlist, setWishlist] = useState([]);
 
     const toggleWishlist = (product) => {
@@ -18,16 +18,13 @@ const WishlistProvider = ({ children }) => {
         if (wishlist.find((item) => item._id === product._id)) {
             removeFromWishlist(product._id);
         } else {
-            axios
-                .post(
-                    "/api/user/wishlist",
-                    JSON.stringify({
-                        product,
-                    }),
-                    {
-                        headers: { authorization: localStorage.getItem("token") },
-                    }
-                )
+            axios.post("/api/user/wishlist", JSON.stringify({
+                product,
+            }),
+                {
+                    headers: { authorization: token },
+                }
+            )
                 .then((res) => {
                     setWishlist(res.data.wishlist);
                 })
@@ -41,7 +38,7 @@ const WishlistProvider = ({ children }) => {
     const removeFromWishlist = (id) => {
         axios
             .delete(`/api/user/wishlist/${id}`, {
-                headers: { authorization: localStorage.getItem("token") },
+                headers: { authorization: token },
             })
             .then((res) => {
                 setWishlist(res.data.wishlist);
@@ -52,18 +49,14 @@ const WishlistProvider = ({ children }) => {
     };
 
     const clearWishlist = () => {
+        wishlist.map(product => removeFromWishlist(product._id))
         setWishlist([]);
     };
 
-    useEffect(() => {
-        console.log("Wishlist", wishlist);
-
-    }, [wishlist]);
-
-    useEffect(() => {
+    const getWishlist = () => {
         axios
             .get("/api/user/wishlist", {
-                headers: { authorization: localStorage.getItem("token") },
+                headers: { authorization: token },
             })
             .then((res) => {
                 setWishlist(res.data.wishlist);
@@ -71,7 +64,15 @@ const WishlistProvider = ({ children }) => {
             .catch((err) => {
                 setWishlist([]);
             });
-    }, []);
+    }
+
+    useEffect(() => {
+        console.log("wishlist state varibale: ", wishlist);
+    }, [wishlist]);
+
+
+
+
 
     return (
         <WishlistContext.Provider
@@ -80,6 +81,7 @@ const WishlistProvider = ({ children }) => {
                 setWishlist,
                 toggleWishlist,
                 clearWishlist,
+                getWishlist
             }}
         >
             {children}

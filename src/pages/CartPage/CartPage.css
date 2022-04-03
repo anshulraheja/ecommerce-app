@@ -21,7 +21,7 @@
     font-weight: 500;
 }
 .btn-removeFromCart{
-    background: var(--COLOR-CATEGORY-BKGD);
+    background: var(--COLOR-BACKGROUND-GREY);
 }
 .btn-movetoWishlist{
     background: var(--COLOR-CATEGORY-CARD-BKGD);

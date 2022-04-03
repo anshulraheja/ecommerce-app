@@ -1,11 +1,17 @@
 import './ProductCard.css'
 import { useWishlist } from '../../context/wishlist-context.js'
+import { useCart } from '../../context/cart-context';
 const ProductCard = ({ item }) => {
     const { title, price, image, categoryName, subCategory, rating } = item;
     const { wishlist, toggleWishlist } = useWishlist();
+    const { cartState, addToCart } = useCart();
 
     const isProductInWishlist =
         wishlist.findIndex((p) => p._id === item._id) !== -1;
+
+
+    const isProductInCart = cartState.cartItems.findIndex((p) => p._id === item._id) !== -1;
+
     return (
         <div className="product-card vertical-card">
             <div className="product-card-image-container">
@@ -38,7 +44,16 @@ const ProductCard = ({ item }) => {
                     </div>
                 </div>
                 <div className="product-card-btn-container">
-                    <button className="btn-addToCart">Add to Bag</button>
+                    {
+                        isProductInCart ? (
+                            <button className="btn-goToBag" onClick={() => addToCart(item)} >Go to Bag</button>
+                        )
+                            :
+                            (
+                                <button className="btn-addToCart" onClick={() => addToCart(item)}>Add to Bag</button>
+                            )
+                    }
+
                 </div>
             </div>
         </div>

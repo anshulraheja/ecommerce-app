@@ -7,6 +7,7 @@ import { DbProvider } from "./context/Dbcontext";
 import { FilterProvider } from "./context/filter-context";
 import { AuthProvider } from "./context/auth-context";
 import { WishlistProvider } from "./context/wishlist-context";
+import { CartProvider } from "./context/cart-context";
 // Call make Server
 makeServer();
 
@@ -16,11 +17,15 @@ ReactDOM.render(
       <DbProvider>
 
         <AuthProvider>
+
           <WishlistProvider>
-            <FilterProvider>
-              <App />
-            </FilterProvider>
+            <CartProvider>
+              <FilterProvider>
+                <App />
+              </FilterProvider>
+            </CartProvider>
           </WishlistProvider>
+
         </ AuthProvider >
 
       </DbProvider>

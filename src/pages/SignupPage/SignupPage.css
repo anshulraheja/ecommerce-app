@@ -87,6 +87,7 @@
 .login-new_account{
     align-self: center;
     cursor: pointer;
+    color: white;
 }
 @media (max-width: 425px){
     html{

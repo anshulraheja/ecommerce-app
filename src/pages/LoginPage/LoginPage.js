@@ -2,6 +2,7 @@ import './LoginPage.css'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../context/auth-context';
+import Header from '../../components/Header/Header';
 const LoginPage = () => {
 
     const [loginData, setloginData] = useState({
@@ -25,6 +26,7 @@ const LoginPage = () => {
     };
     return (
         <div>
+            <Header />
             <section className="login-container">
                 <form className="login-form">
                     <h3 className="login-header">Login</h3>

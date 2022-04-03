@@ -7,16 +7,20 @@ const authContext = createContext(null);
 const authInitialState = {
     isLoggedIn: localStorage.getItem("token") ? true : false,
     user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : "",
+    token: localStorage.getItem("token") ? localStorage.getItem("token") : "",
 };
 
 
 const authReducer = (state, action) => {
     switch (action.type) {
         case "LOGGED_IN":
+            localStorage.setItem("token", action.payload.encodedToken);
+            localStorage.setItem("user", JSON.stringify(action.payload));
             return {
                 ...state,
                 user: action.payload,
                 isLoggedIn: true,
+                token: action.payload.encodedToken
             };
 
         case "LOGGED_OUT":
@@ -25,7 +29,8 @@ const authReducer = (state, action) => {
             return {
                 ...state,
                 isLoggedIn: false,
-                user: ""
+                user: "",
+                token: ""
             };
         default:
             return state;
@@ -52,8 +57,6 @@ const AuthProvider = ({ children }) => {
                     "firstName": name,
                     "terms": terms
                 });
-                localStorage.setItem("token", response.data.encodedToken);
-                localStorage.setItem("user", JSON.stringify(response.data));
                 authDispatcher({ type: "LOGGED_IN", payload: response.data });
                 navigate("/");
             } catch (error) {
@@ -64,8 +67,6 @@ const AuthProvider = ({ children }) => {
     }
 
     const logoutHandler = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
         authDispatcher({ type: "LOGGED_OUT" });
         navigate("/");
     }
@@ -84,8 +85,6 @@ const AuthProvider = ({ children }) => {
                     email: email,
                     password: password,
                 }))
-                localStorage.setItem("token", response.data.encodedToken);
-                localStorage.setItem("user", JSON.stringify(response.data));
                 authDispatcher({ type: "LOGGED_IN", payload: response.data });
                 navigate("/");
             } catch (error) {

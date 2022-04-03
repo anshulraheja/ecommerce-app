@@ -1,16 +1,23 @@
 import './WishlistPage.css';
+import axios from 'axios'
 import { useAuth } from '../../context/auth-context'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useWishlist } from '../../context/wishlist-context';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import { Link } from 'react-router-dom'
-
+import Header from '../../components/Header/Header';
 const WishlistPage = () => {
 
     const { auth } = useAuth();
-    const { wishlist, clearWishlist } = useWishlist();
+    const { wishlist, clearWishlist, getWishlist } = useWishlist();
+
+    useEffect(() => {
+        getWishlist();
+    }, []);
+
     return (
         <div>
+            <Header />
             <h1>Wishlist</h1>
             {auth.isLoggedIn ?
                 <div>
