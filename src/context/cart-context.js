@@ -1,7 +1,6 @@
 import { createContext, useContext, useReducer, useEffect, useState } from "react";
 import { useAuth } from "./auth-context";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { useWishlist } from './wishlist-context'
 
 const CartContext = createContext();
@@ -15,11 +14,9 @@ export function cartReducer(state, action) {
             return { ...state, cart: action.payload }
 
         case "REMOVE_CART_CARD":
-            console.log(state, action);
             return { ...state, cart: action.payload }
 
         case "INCREMENT_CART_QUANTITY":
-            console.log(state, action)
             return { ...state, cart: action.payload }
 
         case "DECREMENT_CART_QUANTITY":
@@ -35,13 +32,8 @@ const CartProvider = ({ children }) => {
     const [cartState, cartDispatch] = useReducer(cartReducer, {
         cart: []
     })
-    const navigate = useNavigate();
     const { auth: { token, isLoggedIn } } = useAuth();
     const { wishlist, setWishlist } = useWishlist();
-    useEffect(() => {
-        console.log("useEffect: ", cartState.cart)
-    }, [cartState])
-
 
     useEffect(() => {
         {
@@ -53,10 +45,9 @@ const CartProvider = ({ children }) => {
                                 authorization: token,
                             }
                         })
-                        console.log("cart useEffect:", cart)
                         cartDispatch({ type: "GET_CARTITEM", payload: cart })
                     } catch (error) {
-                        console.log(error);
+                        alert("error");
                     }
                 })();
         }
@@ -79,7 +70,7 @@ const CartProvider = ({ children }) => {
                     }
 
                 } catch (error) {
-                    console.log("error occured while adding the item")
+                    alert("error occured while adding the item")
                 }
 
 
@@ -103,7 +94,6 @@ const CartProvider = ({ children }) => {
     }
 
     const incrementQty = async (id, type) => {
-        console.log(id, type)
         try {
             const { data: { cart } } = await axios.post(`/api/user/cart/${id}`, {
                 action: {
@@ -115,11 +105,10 @@ const CartProvider = ({ children }) => {
                         authorization: token,
                     }
                 })
-            console.log("res", cart);
             cartDispatch({ type: "INCREMENT_CART_QUANTITY", payload: cart })
 
         } catch (error) {
-            console.log(error)
+            alert("error")
         }
     }
 
@@ -140,7 +129,7 @@ const CartProvider = ({ children }) => {
 
 
         } catch (error) {
-            console.log(error)
+            alert("error")
         }
     }
     const moveToWishlist = (product) => {

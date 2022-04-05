@@ -48,7 +48,7 @@ const SignupPage = () => {
                         <input type="password" placeholder="Password" name="password" onChange={inputHandler} />
                     </div>
                     <div>
-                        <label htmlFor="confirmpassowrd">Confirm Passowrd</label>
+                        <label htmlFor="confirmpassword">Confirm Passowrd</label>
                         <input type="password" placeholder="Confirm Passowrd" name="confirmpassword" onChange={inputHandler} />
                         <div className="login-remember">
                             <span>

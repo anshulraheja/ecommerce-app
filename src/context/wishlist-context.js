@@ -66,13 +66,6 @@ const WishlistProvider = ({ children }) => {
             });
     }
 
-    useEffect(() => {
-        console.log("wishlist state varibale: ", wishlist);
-    }, [wishlist]);
-
-
-
-
 
     return (
         <WishlistContext.Provider

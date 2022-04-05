@@ -9,8 +9,6 @@ import CartPrice from '../../components/ProductCard/CartPrice'
 const CartPage = () => {
     const { auth } = useAuth();
     const { cartState } = useCart();
-    // const { cart } = cartState;
-    console.log(cartState);
     return (
         <>
             <Header />

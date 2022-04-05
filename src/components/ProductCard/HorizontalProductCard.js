@@ -1,9 +1,7 @@
 import './ProductCard.css'
-import { useWishlist } from '../../context/wishlist-context.js'
 import { useCart } from '../../context/cart-context';
 const HorizontalProductCard = ({ item }) => {
     const { title, price, image, categoryName, subCategory, rating } = item;
-    // const { wishlist, toggleWishlist } = useWishlist();
     const { removeFromCart, moveToWishlist, incrementQty, decrementQty } = useCart();
     return (
         <div className="product-card">
