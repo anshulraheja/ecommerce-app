@@ -1,6 +1,7 @@
 import './ProductCard.css'
 import { useWishlist } from '../../context/wishlist-context.js'
 import { useCart } from '../../context/cart-context';
+import { Link } from 'react-router-dom'
 const ProductCard = ({ item }) => {
     const { title, price, image, categoryName, subCategory, rating } = item;
     const { wishlist, toggleWishlist } = useWishlist();
@@ -10,7 +11,7 @@ const ProductCard = ({ item }) => {
         wishlist.findIndex((p) => p._id === item._id) !== -1;
 
 
-    const isProductInCart = cartState.cartItems.findIndex((p) => p._id === item._id) !== -1;
+    const isProductInCart = cartState.cart.findIndex((p) => p._id === item._id) !== -1;
 
     return (
         <div className="product-card vertical-card">
@@ -46,7 +47,7 @@ const ProductCard = ({ item }) => {
                 <div className="product-card-btn-container">
                     {
                         isProductInCart ? (
-                            <button className="btn-goToBag" onClick={() => addToCart(item)} >Go to Bag</button>
+                            <Link to="cart" className="btn-goToBag">Go to Bag</Link>
                         )
                             :
                             (

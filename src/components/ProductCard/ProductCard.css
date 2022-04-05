@@ -44,6 +44,7 @@
     color: var(--COLOR-WHITE);
 }
 .btn-goToBag{
+    text-align: center;
     background-color: var(--COLOR-ADDTOCART);
     color: var(--COLOR-WHITE);
 }
@@ -86,3 +87,7 @@
 }
 
 /* horizontal */
+.quantity-box{
+    display: flex;
+    gap: 1rem;
+}

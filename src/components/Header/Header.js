@@ -21,7 +21,7 @@ const Header = () => {
             <div className="categories">
                 {categories.length > 0 && categories.map(({ _id, categoryName }) => (
                     <li key={_id}>
-                        <Link to="/products">{categoryName}</Link>
+                        <Link to="/products" className="categories-tab">{categoryName}</Link>
                     </li>
                 ))}
             </div>
@@ -37,7 +37,7 @@ const Header = () => {
                     </Link>
                     <Link to="/cart" className="badge-wrapper">
                         <i className="fas fa-shopping-bag"></i>
-                        {cartState.cartItems.length > 0 && <span className="badge notification-badge">{cartState.cartItems.length}</span>}
+                        {cartState.cart.length > 0 && <span className="badge notification-badge">{cartState.cart.length}</span>}
                     </Link>
                     {auth.isLoggedIn === true ?
                         < div >
@@ -45,7 +45,7 @@ const Header = () => {
                         </div>
 
                         :
-                        <Link to="/login" className="btn-login">
+                        <Link to="/signup" className="btn-login">
                             Sign up
                         </Link>
                     }

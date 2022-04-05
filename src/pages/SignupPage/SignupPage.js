@@ -58,7 +58,7 @@ const SignupPage = () => {
                         </div>
                     </div>
                     <button className="login-button" onClick={(e) => signUphandler(e, signUpData)}>Create New Account</button>
-                    <Link to="/login" className="login-new_account">Already Have an account? Login In </Link>
+                    <Link to="/login" className="login-new_account">Already Have an account? Login</Link>
                 </form>
             </section>
             </div>

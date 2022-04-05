@@ -32,7 +32,7 @@ const LoginPage = () => {
                     <h3 className="login-header">Login</h3>
                     <div>
                         <label htmlFor="email">Email</label>
-                        <input type="email" name="email" placeholder="Email" id="email" onChange={inputHandler} />
+                        <input type="email" name="email" placeholder="admin" id="email" onChange={inputHandler} />
                     </div>
                     <div>
                         <label htmlFor="password">Password</label>

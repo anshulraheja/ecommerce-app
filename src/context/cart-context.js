@@ -5,72 +5,144 @@ import { useNavigate } from "react-router-dom";
 import { useWishlist } from './wishlist-context'
 
 const CartContext = createContext();
+export function cartReducer(state, action) {
+
+    switch (action.type) {
+        case "GET_CARTITEM":
+            return { ...state, cart: action.payload }
+
+        case "ADD_TO_CART":
+            return { ...state, cart: action.payload }
+
+        case "REMOVE_CART_CARD":
+            console.log(state, action);
+            return { ...state, cart: action.payload }
+
+        case "INCREMENT_CART_QUANTITY":
+            console.log(state, action)
+            return { ...state, cart: action.payload }
+
+        case "DECREMENT_CART_QUANTITY":
+            return { ...state, cart: action.payload }
+
+        default:
+            return state
+    }
+}
 
 const CartProvider = ({ children }) => {
 
-    const [cartState, setCartState] = useState({
-        cartItems: []
+    const [cartState, cartDispatch] = useReducer(cartReducer, {
+        cart: []
     })
     const navigate = useNavigate();
     const { auth: { token, isLoggedIn } } = useAuth();
     const { wishlist, setWishlist } = useWishlist();
     useEffect(() => {
-        console.log(cartState.cartItems)
+        console.log("useEffect: ", cartState.cart)
     }, [cartState])
 
 
-    const getCart = () => {
-        axios
-            .get("/api/user/cart", {
-                headers: { authorization: token },
-            })
-            .then((res) => {
-                setCartState({ cartItems: res.data.cart })
+    useEffect(() => {
+        {
+            token &&
+                (async () => {
+                    try {
+                        const { data: { cart } } = await axios("api/user/cart", {
+                            headers: {
+                                authorization: token,
+                            }
+                        })
+                        console.log("cart useEffect:", cart)
+                        cartDispatch({ type: "GET_CARTITEM", payload: cart })
+                    } catch (error) {
+                        console.log(error);
+                    }
+                })();
+        }
+    }, [token])
 
-            })
-            .catch((err) => {
-                alert("Error in getting the cart items")
-            });
-    }
 
     const addToCart = (product) => {
-        if (!isLoggedIn) {
-            alert("Please login first to add items to cart")
+        if (cartState.cart.find((item) => item._id === product._id)) {
             return;
-        }
-        if (cartState.cartItems.find((item) => item._id === product._id)) {
-            navigate("/cart")
-        }
-        else {
-            axios.post("/api/user/cart", JSON.stringify({
-                product
-            }),
-                {
-                    headers: { authorization: token },
+        } else {
+            (async () => {
+                try {
+                    const { status, data: { cart } } = await axios.post("api/user/cart", { product }, {
+                        headers: {
+                            authorization: token,
+                        }
+                    })
+                    if (status === 201 || status === 200) {
+                        cartDispatch({ type: "ADD_TO_CART", payload: cart, productId: product._id },)
+                    }
+
+                } catch (error) {
+                    console.log("error occured while adding the item")
                 }
-            )
-                .then((res) => {
-                    getCart();
-                })
-                .catch((err) => {
-                    alert("Error occured while adding the product to cart");
-                });
+
+
+            })();
         }
     }
 
-    const removeFromCart = (id) => {
-        axios
-            .delete(`/api/user/cart/${id}`, {
-                headers: { authorization: token },
+    const removeFromCart = async (id) => {
+        try {
+            const { status, data: { cart } } = await axios.delete(`/api/user/cart/${id}`, {
+                headers: {
+                    authorization: token,
+                }
             })
-            .then((res) => {
-                getCart();
-            })
-            .catch((err) => {
-                alert("some error occured while deleting")
-            });
+            if (status === 201 || status === 200) {
+                cartDispatch({ type: "REMOVE_CART_CARD", payload: cart })
+            }
+        } catch (error) {
+            alert("error occured while deleting the item")
+        }
     }
 
+    const incrementQty = async (id, type) => {
+        console.log(id, type)
+        try {
+            const { data: { cart } } = await axios.post(`/api/user/cart/${id}`, {
+                action: {
+                    type: type,
+                },
+            },
+                {
+                    headers: {
+                        authorization: token,
+                    }
+                })
+            console.log("res", cart);
+            cartDispatch({ type: "INCREMENT_CART_QUANTITY", payload: cart })
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const decrementQty = async (id, type) => {
+        try {
+            const { data: { cart }, } = await axios.post(`/api/user/cart/${id}`, {
+                action: {
+                    type: type
+                },
+            },
+                {
+                    headers: {
+                        authorization: token,
+                    }
+                })
+
+            cartDispatch({ type: "DECREMENT_CART_QUANTITY", payload: cart })
+
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
     const moveToWishlist = (product) => {
 
         if (wishlist.find((item) => item._id === product._id)) {
@@ -95,13 +167,11 @@ const CartProvider = ({ children }) => {
 
 
     }
-    const increaseItemQty = (id) => {
-        console.log("increase");
-    }
-    return <CartContext.Provider value={{ cartState, addToCart, getCart, removeFromCart, moveToWishlist, increaseItemQty }}>
+    return <CartContext.Provider value={{ cartState, addToCart, removeFromCart, incrementQty, decrementQty, moveToWishlist }}>
         {children}
     </CartContext.Provider>
 }
+
 
 const useCart = () => useContext(CartContext)
 

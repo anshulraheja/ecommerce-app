@@ -22,7 +22,7 @@ const WishlistPage = () => {
             {auth.isLoggedIn ?
                 <div>
 
-                    {wishlist.length > 0 && <button onClick={clearWishlist}>Clear wishlist</button>}
+                    {wishlist.length > 0 && <button claassName="btn-clear-wishlist" onClick={clearWishlist}>Clear wishlist</button>}
                     {
                         wishlist.length > 0 ?
                             wishlist.map(item => {

@@ -1,3 +1,4 @@
+
 .cart-product-container{
     background: var(--COLOR-CATEGORY-BKGD);
     padding: 1rem;
@@ -13,7 +14,6 @@
 }
 .final-product-container{
     display: flex;
-    flex-direction: column;
     gap: 1rem;
 }
 .btn-removeFromCart, .btn-movetoWishlist{
@@ -28,6 +28,7 @@
     color: var(--COLOR-WHITE);
 }
 .price-card-container{
+    flex: 1 1 30%;
 }
 .price-card{
     padding: 1.5rem 2rem;
@@ -46,8 +47,6 @@
     border: 1px solid var(--COLOR-SEARCH-BAR);
 }
 .price-box{
-    background: var(--COLOR-HEADER-TEXT);
-    color: var(--COLOR-SEARCH-BAR);
     display: flex;
     flex-direction: column;
     gap: 0.5rem
@@ -58,6 +57,10 @@
 }
 .btn-placeOrder{
     background: var(--COLOR-BLACK);
+    color: var(--COLOR-WHITE);
     text-align: center;
     padding: 0.75rem 1rem;
+}
+.cart-page-product-container{
+    flex-direction: column;
 }

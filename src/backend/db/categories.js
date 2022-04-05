@@ -20,20 +20,5 @@ export const categories = [
     _id: uuid(),
     categoryName: "Kids",
     description: "",
-  },
-  {
-    _id: uuid(),
-    categoryName: "Customize",
-    description: "",
-  },
-  {
-    _id: uuid(),
-    categoryName: "Sale",
-    description: "",
-  },
-  {
-    _id: uuid(),
-    categoryName: "SNKRS",
-    description: "",
-  },
+  }
 ];
