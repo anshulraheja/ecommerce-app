@@ -18,6 +18,7 @@ const Productpage = () => {
     const discountedProducts = getDiscountedProducts(categoryProducts, rating);
     const pricedProducts = getPricedProducts(discountedProducts, price);
 
+
     return (
         <div>
             <Header />

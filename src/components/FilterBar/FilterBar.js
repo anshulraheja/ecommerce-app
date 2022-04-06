@@ -5,8 +5,8 @@ const FilterBar = () => {
     const { DbState } = useDb();
     const { subCategories } = DbState;
     const { filterState, filterDispatch } = useFilterContext();
-    const { sortBy, max_price, rating, categories: { shoes } } = filterState;
-
+    const { sortBy, max_price, rating, categories } = filterState;
+    const { shoes } = categories
     return (
 
         <div>
@@ -38,7 +38,7 @@ const FilterBar = () => {
                                                     type: subCategoryName.toUpperCase(),
                                                 })
                                             }
-                                        // checked={subCategoryName.toLowerCase()}
+                                            checked={subCategoryName.toLowerCase() === "shoes" ? categories.shoes : categories.clothing}
                                         />
                                         {subCategoryName}
                                     </label>

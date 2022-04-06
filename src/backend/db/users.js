@@ -16,4 +16,13 @@ export const users = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
+  {
+    _id: uuid(),
+    firstName: "anshul",
+    lastName: "raheja",
+    email: "admin",
+    password: "password",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+  },
 ];
