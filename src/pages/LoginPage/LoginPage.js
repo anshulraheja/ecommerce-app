@@ -36,7 +36,7 @@ const LoginPage = () => {
                     </div>
                     <div>
                         <label htmlFor="password">Password</label>
-                        <input type="password" name="password" placeholder="Password" id="password" onChange={inputHandler} />
+                        <input type="password" name="password" placeholder="password" id="password" onChange={inputHandler} />
 
                         <div className="login-remember">
                             <span>
